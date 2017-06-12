@@ -507,56 +507,6 @@
         "dailyTarget": "8",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
-      },
-      {
-        "name": "Stress",
-        "description": "Tracks the individuals amount of stress.",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-            "was stressed",
-            "were stressed"
-          ],
-          "prompt": "How long were you stressed?"
-        },
-        "qty": {
-          "prefix": ["for"],
-          "type": "AMAZON.DURATION",
-          "convertTo": "MINUTES",
-          "prompt": "How long were you stressed?",
-          "default": "NA"
-        },
-        "units": {
-          "type": "custom",
-          "values": [],
-          "default": "NA",
-          "prompt": "NA"
-        },
-        "object": {
-          "prefix": [
-            "by my",
-            "over my",
-            "at my"
-          ],
-          "type": "custom",
-          "values": [
-            "job",
-            "health",
-            "family matters",
-            "friends",
-            "boss",
-            "children",
-            "spouse"
-          ],
-          "default": "not specified",
-          "prompt": "What were you stressed over?"
-        },
-        "confirmation": "I will record that {date} you had {qty} minutes of Stress. Ok?",
-        "cancel": "Sorry, please try again.",
-        "dailyTarget": "0",
-        "weeklyTarget": "0",
-        "monthlyTarget": "60"
       }
     ],
     "ui": {
