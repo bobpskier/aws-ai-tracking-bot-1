@@ -9,34 +9,54 @@
       {
         "name": "FamilyMeals",
         "description": "Tracks the individuals amount of time eating with family.",
-        "noun": "I",
-        "verbs": ["spent", "dinned", "ate", "cooked" ],
-        "units": {
-          "amazonType": {
-            "baseType": "AMAZON.DURATION",
-            "convertTo": "MINUTES"
-          }
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "spent",
+            "dinned",
+            "ate",
+            "cooked"
+          ],
+          "prompt": "How did spend time together?"
         },
-        "type": {
-          "preposition": "with my",
-          "name": "familyMeals",
-          "matches": [
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long did you spend together?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": [
+            "with my",
+            "with"
+          ],
+          "type": "custom",
+          "values": [
             "family",
             "friends",
             "parents",
             "children",
             "wife",
             "spouse"
-          ]
+          ],
+          "default": "not specified",
+          "prompt": "Who did you spend time with?"
         },
-        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes eating with family or friends. Ok?",
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "Thanks. I will record that {date} you spent {qty} minutes eating with family or friends. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete?",
-          "RawValue": "For how long?",
-          "RawUnits": "Was this in minutes or hours?",
-          "familyMeals": "With your family, wife, spouse, children?"
-        },
         "dailyTarget": "45",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -44,22 +64,38 @@
       {
         "name": "Fruit",
         "description": "Tracks the consumption of fruit on daily basis.",
-        "noun": "I",
-        "verbs": [
-          "ate",
-          "had",
-          "consumed"
-        ],
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "ate",
+            "had",
+            "consumed"
+          ],
+          "prompt": "What did you do?"
+        },
+        "qty": {
+          "prefix": [],
+          "type": "AMAZON.NUMBER",
+          "convertTo": "NA",
+          "default": "1",
+          "prompt": "How much did you eat?"
+        },
         "units": {
-          "enumeration": [
+          "type": "custom",
+          "values": [
             "cups",
             "servings"
-          ]
+          ],
+          "default": "NA",
+          "prompt": "Was this in cups or servings?"
         },
-        "type": {
-          "preposition": "of",
-          "name": "fruit",
-          "matches": [
+        "object": {
+          "prefix": [
+            "of"
+          ],
+          "type": "custom",
+          "values": [
             "Apple",
             "Apples",
             "Apricot",
@@ -151,16 +187,16 @@
             "Tamarind",
             "Ugli fruit",
             "Yuzu"
-          ]
+          ],
+          "default": "not specified",
+          "prompt": "What type of fruit did you eat?"
         },
-        "confirmation": "Thanks. I will record that {DayPrefix} you consumed {RawValue} {RawUnits} of Fruit. Ok?",
-        "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you have this fruit?",
-          "RawValue": "How much?",
-          "RawUnits": "Was this in cups or servings?",
-          "fruit": "What type of fruit?"
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do eat this?"
         },
+        "confirmation": "Thanks. I will record that {date} you ate {qty} servings of fruit. Ok?",
         "dailyTarget": "4",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -168,22 +204,38 @@
       {
         "name": "Vegetable",
         "description": "Tracks the consumption of vegetables on daily basis.",
-        "noun": "I",
-        "verbs": [
-          "ate",
-          "had",
-          "consumed"
-        ],
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "ate",
+            "had",
+            "consumed"
+          ],
+          "prompt": "What did you do?"
+        },
+        "qty": {
+          "prefix": [],
+          "type": "AMAZON.NUMBER",
+          "convertTo": "NA",
+          "default": "1",
+          "prompt": "How much did you eat?"
+        },
         "units": {
-          "enumeration": [
+          "type": "custom",
+          "values": [
             "cups",
             "servings"
-          ]
+          ],
+          "default": "NA",
+          "prompt": "Was this in cups or servings?"
         },
-        "type": {
-          "preposition": "of",
-          "name": "vegetable",
-          "matches": [
+          "object": {
+            "prefix": [
+              "of"
+            ],
+            "type": "custom",
+            "values": [
             "Artichoke",
             "Arugula",
             "Asparagus",
@@ -336,16 +388,16 @@
             "Water chestnut",
             "Watercress",
             "Zucchini"
-          ]
+            ],
+            "default": "not specified",
+            "prompt": "What type of vegetable did you eat?"
+          },
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do eat this?"
         },
-        "confirmation": "I will record that {DayPrefix} you consumed {RawValue} {RawUnits} of Vegetables. Ok?",
-        "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you have this vegetable?",
-          "RawValue": "How much?",
-          "RawUnits": "Was this in cups or servings?",
-          "vegetable": "What type of vegetable?"
-        },
+        "confirmation": "Thanks. I will record that {date} you ate {qty} servings of vegetables. Ok?",
         "dailyTarget": "4",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -353,18 +405,10 @@
       {
         "name": "MoveMore",
         "description": "Tracks the individuals amount of movement.",
-        "noun": "I",
-        "verbs": [],
-        "units": {
-          "amazonType": {
-            "baseType": "AMAZON.DURATION",
-            "convertTo": "MINUTES"
-          }
-        },
-        "type": {
-          "preposition": "",
-          "name": "moveMore",
-          "matches": [
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
             "biked",
             "ran",
             "swam",
@@ -372,16 +416,49 @@
             "exercised",
             "jogged",
             "walked"
-          ]
+          ],
+          "prompt": "How did you move or exercise?"
         },
-        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes of Movement. Ok?",
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long did you move?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": [
+            "by",
+            "with my",
+            "with"
+          ],
+          "type": "custom",
+          "values": [
+            "myself",
+            "family",
+            "friends",
+            "parents",
+            "children",
+            "wife",
+            "others",
+            "spouse"
+          ],
+          "default": "not specified",
+          "prompt": "Did you move by yourself or with others?"
+        },
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "Thanks. I will record that {date} you completed {qty} minutes of movement. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete this activity?",
-          "RawValue": "For how long?",
-          "RawUnits": "Was this in minutes or hours?",
-          "moveMore": "How did you move?"
-        },
         "dailyTarget": "0",
         "weeklyTarget": "150",
         "monthlyTarget": "0"
@@ -389,30 +466,56 @@
       {
         "name": "Steps",
         "description": "Tracks the individuals amount of steps.",
-        "noun": "I",
-        "verbs": ["took", "walked", "ran"],
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "walked",
+            "ran",
+            "jogged"
+          ],
+          "prompt": "How did you move or exercise?"
+        },
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.NUMBER",
+          "convertTo": "NA",
+          "prompt": "How many steps did you take?",
+          "default": "NA"
+        },
         "units": {
-          "enumeration": [
-            "steps"
-          ]
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
         },
-        "type": {
-          "preposition": "",
-          "name": "steps",
-          "matches": [
-            "quickly",
-            "slowly",
-            "around my house"
-          ]
+        "object": {
+          "prefix": [
+            "by",
+            "with my",
+            "with"
+          ],
+          "type": "custom",
+          "values": [
+            "myself",
+            "family",
+            "friends",
+            "parents",
+            "children",
+            "wife",
+            "spouse",
+            "others"
+          ],
+          "default": "not specified",
+          "prompt": "Who did you take steps with. By yourself or with others?"
         },
-        "confirmation": "I will record that {DayPrefix} you completed {RawValue} {RawUnits}. Ok?",
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "I will record that {date} you completed {qty} steps. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete?",
-          "RawValue": "How many?",
-          "RawUnits": "Please say the number of steps",
-          "steps": "quickly or slowly?"
-        },
         "dailyTarget": "10000",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -420,30 +523,44 @@
       {
         "name": "Sleep",
         "description": "Tracks the individuals amount of sleep.",
-        "noun": "I",
-        "verbs": ["slept"],
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "slept",
+            "sleep"
+          ],
+          "prompt": "How did you sleep?"
+        },
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "HOURS",
+          "prompt": "How long did you sleep?",
+          "default": "NA"
+        },
         "units": {
-          "amazonType": {
-            "baseType": "AMAZON.DURATION",
-            "convertTo": "HOURS"
-          }
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
         },
-        "type": {
-          "preposition": "for",
-          "name": "sleep",
-          "matches": [
-            "soundly",
-            "lightly"
-          ]
+        "object": {
+          "prefix": [
+          ],
+          "type": "custom",
+          "values": [
+          ],
+          "default": "not specified",
+          "prompt": "NA"
         },
-        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} hours of Sleep. Ok?",
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "I will record that {date} you completed {qty} hours of Sleep. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete?",
-          "RawValue": "For how long?",
-          "RawUnits": "Was this in minutes or hours?",
-          "sleep": "Soundly or lightly??"
-        },
         "dailyTarget": "8",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -451,18 +568,34 @@
       {
         "name": "Stress",
         "description": "Tracks the individuals amount of stress.",
-        "noun": "I",
-        "verbs": ["was"],
-        "units": {
-          "amazonType": {
-            "baseType": "AMAZON.DURATION",
-            "convertTo": "MINUTES"
-          }
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "was stressed",
+            "were stressed"
+          ],
+          "prompt": "How long were you stressed?"
         },
-        "type": {
-          "preposition": "stressed for",
-          "name": "stress",
-          "matches": [
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long were you stressed?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": [
+          ],
+          "type": "custom",
+          "values": [
+            "over my",
             "at my job",
             "over my health",
             "over family matters",
@@ -470,16 +603,12 @@
             "over my boss",
             "over my children",
             "over my spouse"
-          ]
+          ],
+          "default": "not specified",
+          "prompt": "What were you stressed over?"
         },
-        "confirmation": "I will record that {DayPrefix} you had {RawValueDURATION} minutes of Stress. Ok?",
+        "confirmation": "I will record that {date} you had {qty} minutes of Stress. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete?",
-          "RawValue": "For how long?",
-          "RawUnits": "Was this in minutes or hours?",
-          "stress": "What type of stress? job, health, nervous, irritated?"
-        },
         "dailyTarget": "0",
         "weeklyTarget": "0",
         "monthlyTarget": "60"
@@ -487,34 +616,51 @@
       {
         "name": "Connected",
         "description": "Tracks the individuals amount of time connected to others.",
-        "noun": "I",
-        "verbs": ["talked", "called", "chatted", "emailed", "messaged"],
-        "units": {
-          "amazonType": {
-            "baseType": "AMAZON.DURATION",
-            "convertTo": "MINUTES"
-          }
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "talked",
+            "called",
+            "chatted",
+            "emailed",
+            "messaged",
+            "was connected",
+            "were connected"
+          ],
+          "prompt": "How did you connect?"
         },
-        "type": {
-          "preposition": "with my",
-          "name": "connected",
-          "matches": [
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long were you connected?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": [
+          ],
+          "type": "custom",
+          "values": [
             "family",
             "friends,",
             "children",
             "spouse",
             "wife",
-            "husband"
-          ]
+            "husband",
+            "parents"
+          ],
+          "default": "not specified",
+          "prompt": "Who were you connected with?"
         },
-        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes of being connected. Ok?",
+        "confirmation": "I will record that {date} you completed {qty} minutes of being connected. Ok?",
         "cancel": "Sorry, please try again.",
-        "slotPrompts": {
-          "DayPrefix": "When did you complete?",
-          "RawValue": "For how long?",
-          "RawUnits": "Was this in minutes or hours?",
-          "connected": "Who did you connect with?"
-        },
         "dailyTarget": "0",
         "weeklyTarget": "60",
         "monthlyTarget": "0"
