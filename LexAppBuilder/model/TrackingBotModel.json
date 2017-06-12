@@ -458,6 +458,105 @@
         "dailyTarget": "10000",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
+      },
+      {
+        "name": "Sleep",
+        "description": "Tracks the individuals amount of sleep.",
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "slept",
+            "sleep"
+          ],
+          "prompt": "How did you sleep?"
+        },
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "HOURS",
+          "prompt": "How long did you sleep?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": ["at","at a"
+          ],
+          "type": "custom",
+          "values": [
+            "home",
+            "hotel",
+            "friends house",
+            "my parents"
+          ],
+          "default": "home",
+          "prompt": "Where did you sleep?"
+        },
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "I will record that {date} you completed {qty} hours of Sleep. Ok?",
+        "cancel": "Sorry, please try again.",
+        "dailyTarget": "8",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Stress",
+        "description": "Tracks the individuals amount of stress.",
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "was stressed",
+            "were stressed"
+          ],
+          "prompt": "How long were you stressed?"
+        },
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long were you stressed?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": [
+            "by my",
+            "over my",
+            "at my"
+          ],
+          "type": "custom",
+          "values": [
+            "job",
+            "health",
+            "family matters",
+            "friends",
+            "boss",
+            "children",
+            "spouse"
+          ],
+          "default": "not specified",
+          "prompt": "What were you stressed over?"
+        },
+        "confirmation": "I will record that {date} you had {qty} minutes of Stress. Ok?",
+        "cancel": "Sorry, please try again.",
+        "dailyTarget": "0",
+        "weeklyTarget": "0",
+        "monthlyTarget": "60"
       }
     ],
     "ui": {
