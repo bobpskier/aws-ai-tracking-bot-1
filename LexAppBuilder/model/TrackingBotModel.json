@@ -552,11 +552,75 @@
           "default": "not specified",
           "prompt": "What were you stressed over?"
         },
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
         "confirmation": "I will record that {date} you had {qty} minutes of Stress. Ok?",
         "cancel": "Sorry, please try again.",
         "dailyTarget": "0",
         "weeklyTarget": "0",
         "monthlyTarget": "60"
+      },
+      {
+        "name": "Connected",
+        "description": "Tracks the individuals amount of time connected to others.",
+        "verb": {
+          "prefix": ["I", "We"],
+          "type": "custom",
+          "values": [
+            "talked",
+            "called",
+            "chatted",
+            "emailed",
+            "messaged",
+            "was connected",
+            "were connected"
+          ],
+          "prompt": "How did you connect?"
+        },
+        "qty": {
+          "prefix": ["for"],
+          "type": "AMAZON.DURATION",
+          "convertTo": "MINUTES",
+          "prompt": "How long were you connected?",
+          "default": "NA"
+        },
+        "units": {
+          "type": "custom",
+          "values": [],
+          "default": "NA",
+          "prompt": "NA"
+        },
+        "object": {
+          "prefix": ["with my",
+            "to my",
+            "around my"
+          ],
+          "type": "custom",
+          "values": [
+            "family",
+            "friends,",
+            "children",
+            "spouse",
+            "wife",
+            "husband",
+            "parents"
+          ],
+          "default": "not specified",
+          "prompt": "Who were you connected with?"
+        },
+        "date": {
+          "type": "AMAZON.DATE",
+          "default": "TODAY",
+          "prompt": "When did you do this?"
+        },
+        "confirmation": "I will record that {date} you completed {qty} minutes of being connected. Ok?",
+        "cancel": "Sorry, please try again.",
+        "dailyTarget": "0",
+        "weeklyTarget": "60",
+        "monthlyTarget": "0"
       }
     ],
     "ui": {
