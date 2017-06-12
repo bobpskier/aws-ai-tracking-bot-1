@@ -1,328 +1,529 @@
 {
   "bot": {
-    "name": "Resolutions",
-    "description": "Defines Lex Bot for tracking New Years Resolutions",
+    "name": "HealthyForGood",
+    "description": "Defines Lex Bot for AHA Healthy For Good",
     "clarificationPrompt": "Sorry, can you please repeat that?",
     "abortStatement": "Sorry, I could not understand. Goodbye.",
-    "allowUserToClearMetrics": "true",
+    "allowClearDailyMetrics": "true",
     "categories": [
       {
-        "name": "Volunteer",
-        "description": "Tracks how many hours you volunteer",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-              "spent",
-              "volunteered",
-              "coached",
-              "taught",
-              "sold",
-              "mentored",
-              "performed"
-            ],
-          "prompt": "How did you volunteer. Taught, coached, mentored?"
-        },
-        "qty": {
-          "prefix": ["for"],
-          "type": "AMAZON.DURATION",
-          "convertTo": "MINUTES",
-          "prompt": "How long did you spend on this activity?",
-          "default": "NA"
-        },
+        "name": "FamilyMeals",
+        "description": "Tracks the individuals amount of time eating with family.",
+        "noun": "I",
+        "verbs": ["spent", "dinned", "ate", "cooked" ],
         "units": {
-          "type": "custom",
-          "values": [],
-          "default": "NA",
-          "prompt": "NA"
+          "amazonType": {
+            "baseType": "AMAZON.DURATION",
+            "convertTo": "MINUTES"
+          }
         },
-        "object": {
-          "prefix": [
-            "the",
-            "coaching the",
-            "mentoring the",
-            "teaching the",
-            "volunteering at the",
-            "performing at the",
-            "at the",
-            "with",
-            "with the"
-          ],
-          "type": "custom",
-          "values": [
-            "football team",
-            "soccer team",
-            "robotics club",
-            "debating society",
-            "drama club",
-            "school",
-            "church",
-            "club"
-          ],
-          "default": "not specified",
-          "prompt": "For whom did you volunteer?"
+        "type": {
+          "preposition": "with my",
+          "name": "familyMeals",
+          "matches": [
+            "family",
+            "friends",
+            "parents",
+            "children",
+            "wife",
+            "spouse"
+          ]
         },
-        "date": {
-          "type": "AMAZON.DATE",
-          "default": "TODAY",
-          "prompt": "When did you do this?"
-        },
-        "confirmation": "Thanks. I will record that {date} you spent {qty} minutes of time volunteering. Ok?",
+        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes eating with family or friends. Ok?",
         "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete?",
+          "RawValue": "For how long?",
+          "RawUnits": "Was this in minutes or hours?",
+          "familyMeals": "With your family, wife, spouse, children?"
+        },
+        "dailyTarget": "45",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Fruit",
+        "description": "Tracks the consumption of fruit on daily basis.",
+        "noun": "I",
+        "verbs": [
+          "ate",
+          "had",
+          "consumed"
+        ],
+        "units": {
+          "enumeration": [
+            "cups",
+            "servings"
+          ]
+        },
+        "type": {
+          "preposition": "of",
+          "name": "fruit",
+          "matches": [
+            "Apple",
+            "Apples",
+            "Apricot",
+            "Avocado",
+            "Banana",
+            "Bilberry",
+            "Blackberry",
+            "Blackcurrant",
+            "Blueberry",
+            "Boysenberry",
+            "Currant",
+            "Cherry",
+            "Cherimoya",
+            "Cloudberry",
+            "Coconut",
+            "Cranberry",
+            "Cucumber",
+            "Custard apple",
+            "Damson",
+            "Date",
+            "Dragonfruit",
+            "Durian",
+            "Elderberry",
+            "Feijoa",
+            "Fig",
+            "Goji berry",
+            "Gooseberry",
+            "Grape",
+            "Raisin",
+            "Grapefruit",
+            "Guava",
+            "Honeyberry",
+            "Huckleberry",
+            "Jabuticaba",
+            "Jackfruit",
+            "Jambul",
+            "Jujube",
+            "Juniper berry",
+            "Kiwifruit",
+            "Kumquat",
+            "Lemon",
+            "Lime",
+            "Loquat",
+            "Longan",
+            "Lychee",
+            "Mango",
+            "Marionberry",
+            "Melon",
+            "Cantaloupe",
+            "Honeydew",
+            "Watermelon",
+            "Miracle fruit",
+            "Mulberry",
+            "Nectarine",
+            "Nance",
+            "Olive",
+            "Orange",
+            "Blood orange",
+            "Clementine",
+            "Mandarine",
+            "Tangerine",
+            "Papaya",
+            "Passionfruit",
+            "Peach",
+            "Pear",
+            "Persimmon",
+            "Physalis",
+            "Plantain",
+            "Plum",
+            "Prune",
+            "Pineapple",
+            "Plumcot",
+            "Pomegranate",
+            "Pomelo",
+            "Purple mangosteen",
+            "Quince",
+            "Raspberry",
+            "Salmonberry",
+            "Rambutan",
+            "Redcurrant",
+            "Salal berry",
+            "Salak",
+            "Satsuma",
+            "Soursop",
+            "Star fruit",
+            "Solanum quitoense",
+            "Strawberry",
+            "Tamarillo",
+            "Tamarind",
+            "Ugli fruit",
+            "Yuzu"
+          ]
+        },
+        "confirmation": "Thanks. I will record that {DayPrefix} you consumed {RawValue} {RawUnits} of Fruit. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you have this fruit?",
+          "RawValue": "How much?",
+          "RawUnits": "Was this in cups or servings?",
+          "fruit": "What type of fruit?"
+        },
+        "dailyTarget": "4",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Vegetable",
+        "description": "Tracks the consumption of vegetables on daily basis.",
+        "noun": "I",
+        "verbs": [
+          "ate",
+          "had",
+          "consumed"
+        ],
+        "units": {
+          "enumeration": [
+            "cups",
+            "servings"
+          ]
+        },
+        "type": {
+          "preposition": "of",
+          "name": "vegetable",
+          "matches": [
+            "Artichoke",
+            "Arugula",
+            "Asparagus",
+            "Aubergine",
+            "Eggplant",
+            "Amaranth",
+            "Legumes",
+            "Alfalfa sprouts",
+            "Azuki beans",
+            "Adzuki",
+            "Bean sprouts",
+            "Black beans",
+            "Black-eyed peas",
+            "Borlotti bean",
+            "Broad beans",
+            "Chickpeas",
+            "Garbanzos",
+            "ceci beans",
+            "Green beans",
+            "Kidney beans",
+            "Lentils",
+            "Lima beans",
+            "Butter bean",
+            "Mung beans",
+            "Navy beans",
+            "Pinto beans",
+            "Runner beans",
+            "Split peas",
+            "Soy beans",
+            "Peas",
+            "Mangetout",
+            "Snap peas",
+            "Beet greens",
+            "Chard",
+            "Bok choy",
+            "Broccoflower",
+            "Broccoli",
+            "Brussels sprouts",
+            "Cabbage",
+            "Calabrese",
+            "Carrots",
+            "Cauliflower",
+            "Celery",
+            "Chard",
+            "Collard greens",
+            "Corn salad",
+            "Endive",
+            "Fiddleheads",
+            "Frisee",
+            "Fennel",
+            "Herbs and spices",
+            "Anise",
+            "Basil",
+            "Caraway",
+            "Cilantro seeds",
+            "Coriander",
+            "Chamomile",
+            "Dill",
+            "Fennel",
+            "Lavender",
+            "Lemon Grass",
+            "Marjoram",
+            "Oregano",
+            "Parsley",
+            "Rosemary",
+            "Sage",
+            "Thyme",
+            "Kale",
+            "Kohlrabi",
+            "Lettuce",
+            "Maize",
+            "Corn",
+            "Mushrooms",
+            "Mustard greens",
+            "Nettles",
+            "New Zealand spinach",
+            "Okra",
+            "Onion",
+            "Chives",
+            "Garlic",
+            "Leek Allium porrum",
+            "Shallot",
+            "Spring onion",
+            "Green onion",
+            "Scallion",
+            "Parsley",
+            "Peppers",
+            "Green pepper",
+            "Red pepper",
+            "bell pepper",
+            "pimento",
+            "Chili pepper",
+            "Capsicum",
+            "Jalapeño",
+            "Habanero",
+            "Paprika",
+            "Tabasco pepper",
+            "Cayenne pepper",
+            "Radicchio",
+            "Rhubarb",
+            "Root vegetables",
+            "Beetroot",
+            "Beet",
+            "mangel-wurzel",
+            "Carrot",
+            "Celeriac",
+            "Daikon",
+            "Ginger",
+            "Parsnip",
+            "Rutabaga",
+            "Turnip",
+            "Radish",
+            "Swede",
+            "Rutabaga",
+            "Turnip",
+            "Wasabi",
+            "Horseradish",
+            "White radish",
+            "Salsify",
+            "Skirret",
+            "Spinach",
+            "Topinambur",
+            "Squashes",
+            "Acorn squash",
+            "Butternut squash",
+            "Banana squash",
+            "Courgette",
+            "Zucchini",
+            "Cucumber",
+            "Delicata",
+            "Gem squash",
+            "Hubbard squash",
+            "Marrow",
+            "Squash",
+            "Cucurbita",
+            "Patty pans",
+            "Pumpkin",
+            "Spaghetti squash",
+            "Tat soi",
+            "Tomato",
+            "Tubers",
+            "Jicama",
+            "Jerusalem artichoke",
+            "Potato",
+            "Sunchokes",
+            "Sweet potato",
+            "Taro",
+            "Yam",
+            "Turnip greens",
+            "Water chestnut",
+            "Watercress",
+            "Zucchini"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you consumed {RawValue} {RawUnits} of Vegetables. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you have this vegetable?",
+          "RawValue": "How much?",
+          "RawUnits": "Was this in cups or servings?",
+          "vegetable": "What type of vegetable?"
+        },
+        "dailyTarget": "4",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "MoveMore",
+        "description": "Tracks the individuals amount of movement.",
+        "noun": "I",
+        "verbs": [],
+        "units": {
+          "amazonType": {
+            "baseType": "AMAZON.DURATION",
+            "convertTo": "MINUTES"
+          }
+        },
+        "type": {
+          "preposition": "",
+          "name": "moveMore",
+          "matches": [
+            "biked",
+            "ran",
+            "swam",
+            "skied",
+            "exercised",
+            "jogged",
+            "walked"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes of Movement. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete this activity?",
+          "RawValue": "For how long?",
+          "RawUnits": "Was this in minutes or hours?",
+          "moveMore": "How did you move?"
+        },
+        "dailyTarget": "0",
+        "weeklyTarget": "150",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Steps",
+        "description": "Tracks the individuals amount of steps.",
+        "noun": "I",
+        "verbs": ["took", "walked", "ran"],
+        "units": {
+          "enumeration": [
+            "steps"
+          ]
+        },
+        "type": {
+          "preposition": "",
+          "name": "steps",
+          "matches": [
+            "quickly",
+            "slowly",
+            "around my house"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you completed {RawValue} {RawUnits}. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete?",
+          "RawValue": "How many?",
+          "RawUnits": "Please say the number of steps",
+          "steps": "quickly or slowly?"
+        },
+        "dailyTarget": "10000",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Sleep",
+        "description": "Tracks the individuals amount of sleep.",
+        "noun": "I",
+        "verbs": ["slept"],
+        "units": {
+          "amazonType": {
+            "baseType": "AMAZON.DURATION",
+            "convertTo": "HOURS"
+          }
+        },
+        "type": {
+          "preposition": "for",
+          "name": "sleep",
+          "matches": [
+            "soundly",
+            "lightly"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} hours of Sleep. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete?",
+          "RawValue": "For how long?",
+          "RawUnits": "Was this in minutes or hours?",
+          "sleep": "Soundly or lightly??"
+        },
+        "dailyTarget": "8",
+        "weeklyTarget": "0",
+        "monthlyTarget": "0"
+      },
+      {
+        "name": "Stress",
+        "description": "Tracks the individuals amount of stress.",
+        "noun": "I",
+        "verbs": ["was"],
+        "units": {
+          "amazonType": {
+            "baseType": "AMAZON.DURATION",
+            "convertTo": "MINUTES"
+          }
+        },
+        "type": {
+          "preposition": "stressed for",
+          "name": "stress",
+          "matches": [
+            "at my job",
+            "over my health",
+            "over family matters",
+            "over my friends",
+            "over my boss",
+            "over my children",
+            "over my spouse"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you had {RawValueDURATION} minutes of Stress. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete?",
+          "RawValue": "For how long?",
+          "RawUnits": "Was this in minutes or hours?",
+          "stress": "What type of stress? job, health, nervous, irritated?"
+        },
+        "dailyTarget": "0",
+        "weeklyTarget": "0",
+        "monthlyTarget": "60"
+      },
+      {
+        "name": "Connected",
+        "description": "Tracks the individuals amount of time connected to others.",
+        "noun": "I",
+        "verbs": ["talked", "called", "chatted", "emailed", "messaged"],
+        "units": {
+          "amazonType": {
+            "baseType": "AMAZON.DURATION",
+            "convertTo": "MINUTES"
+          }
+        },
+        "type": {
+          "preposition": "with my",
+          "name": "connected",
+          "matches": [
+            "family",
+            "friends,",
+            "children",
+            "spouse",
+            "wife",
+            "husband"
+          ]
+        },
+        "confirmation": "I will record that {DayPrefix} you completed {RawValueDURATION} minutes of being connected. Ok?",
+        "cancel": "Sorry, please try again.",
+        "slotPrompts": {
+          "DayPrefix": "When did you complete?",
+          "RawValue": "For how long?",
+          "RawUnits": "Was this in minutes or hours?",
+          "connected": "Who did you connect with?"
+        },
         "dailyTarget": "0",
         "weeklyTarget": "60",
         "monthlyTarget": "0"
-      },
-      {
-        "name": "Meet",
-        "description": "Tracks how many community meetings you attend",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-            "met",
-            "went to",
-            "attended a meeting"
-          ],
-          "prompt": "What did you do?"
-        },
-        "qty": {
-          "prefix": [],
-          "type": "AMAZON.NUMBER",
-          "convertTo": "NA",
-          "default": "1",
-          "prompt": "How many meetings did you attend?"
-        },
-        "units": {
-          "type": "custom",
-          "values": [],
-          "default": "NA",
-          "prompt": "NA"
-        },
-        "object": {
-          "prefix": [
-            "meeting with the",
-            "with the",
-            "at the"
-          ],
-          "type": "custom",
-          "values": [
-            "town hall",
-            "home owners association",
-            "community association",
-            "board",
-            "non-profit",
-            "organization",
-            "group",
-            "society",
-            "congress",
-            "president",
-            "committee"
-          ],
-          "default": "not specified",
-          "prompt": "With whom did you meet?"
-        },
-        "date": {
-          "type": "AMAZON.DATE",
-          "default": "TODAY",
-          "prompt": "When did you perform this?"
-        },
-        "confirmation": "I will record that {date} you attended {qty} meetings. Ok?",
-        "cancel": "Sorry, please try again.",
-        "dailyTarget": "0",
-        "weeklyTarget": "1",
-        "monthlyTarget": "0"
-      },
-      {
-        "name": "Articles",
-        "description": "Tracks the number of articles given to charity",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-            "donated",
-            "gave",
-            "gave away",
-            "dropped off",
-            "contributed"
-          ],
-          "prompt": "What did you do?"
-        },
-        "qty": {
-          "prefix": [],
-          "type": "AMAZON.NUMBER",
-          "prompt": "What quantity did you give?",
-          "default": "NA"
-        },
-        "units": {
-          "type": "custom",
-          "values": [
-            "items",
-            "individual",
-            "sets",
-            "bundles",
-            "pairs",
-            "bags",
-            "box",
-            "boxes",
-            "boxes of books",
-            "boxes of food",
-            "item donations",
-            "cans of food",
-            "bags of clothing",
-            "pairs of shoes",
-            "books",
-            "book",
-            "carton",
-            "pair",
-            "cartons"
-          ],
-          "prompt": "Was this in boxes, bags, bundles, pairs, cartons, items?"
-        },
-        "object": {
-          "prefix": ["to", "to the", "a", "to a"],
-          "type": "custom",
-          "values": [
-            "charity",
-            "veterans association",
-            "shelter",
-            "good samaritan"
-          ],
-          "default": "not specified",
-          "prompt": "Who did you donate to?"
-        },
-        "date": {
-          "type": "AMAZON.DATE",
-          "default": "TODAY",
-          "prompt": "When did you donate?"
-        },
-        "confirmation": "I will record that {date} you gave {qty} {units} to {object}. Ok?",
-        "cancel": "Sorry, please try again.",
-        "dailyTarget": "0",
-        "weeklyTarget": "0",
-        "monthlyTarget": "4"
-      },
-      {
-        "name": "Money",
-        "description": "Tracks how much money you have given",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-            "gave", "donated", "contributed"
-          ],
-          "prompt": "Say gave to indicate you gave funds."
-        },
-        "qty": {
-          "prefix": [],
-          "type": "AMAZON.NUMBER",
-          "prompt": "How much did you provide?",
-          "default": "NA"
-        },
-        "units": {
-          "type": "custom",
-          "values": [
-            "dollars",
-            "pesos",
-            "euros",
-            "rupees"
-          ],
-          "prompt": "What currency - dollars, pesos, euros, or rupees?"
-        },
-        "object": {
-          "prefix": ["to", "to the", "a", "to a"],
-          "type": "custom",
-          "values": [
-            "charity",
-            "non-profit",
-            "university",
-            "hospital",
-            "heart association",
-            "cancer center",
-            "church",
-            "club",
-            "school"
-          ],
-          "default": "not specified",
-          "prompt": "Who did you give to?"
-        },
-        "date": {
-          "type": "AMAZON.DATE",
-          "default": "TODAY",
-          "prompt": "When did you give?"
-        },
-        "confirmation": "I will record that {date} you gave {qty} {units} in funds. Ok?",
-        "cancel": "Sorry, please try again.",
-        "dailyTarget": "10",
-        "weeklyTarget": "0",
-        "monthlyTarget": "0"
-      },
-      {
-        "name": "Events",
-        "description": "Tracks the number of days you participate in an event",
-        "verb": {
-          "prefix": ["I", "We"],
-          "type": "custom",
-          "values": [
-            "participated",
-            "ran",
-            "biked",
-            "walked",
-            "stood",
-            "jogged",
-            "went to",
-            "attended"
-          ],
-          "prompt": "What did you do?"
-        },
-        "qty": {
-          "prefix": ["in"],
-          "type": "AMAZON.NUMBER",
-          "prompt": "How many days did you participate?",
-          "default": "1"
-        },
-        "units": {
-          "type": "custom",
-          "values": [],
-          "default": "NA",
-          "prompt": "NA"
-        },
-        "object": {
-          "prefix": ["the", "a"],
-          "type": "custom",
-          "values": [
-            "ball",
-            "charity ball",
-            "church car wash",
-            "luncheon",
-            "society luncheon",
-            "cancer walk",
-            "heart walk",
-            "ALS walk",
-            "fundraiser",
-            "pancake breakfast",
-            "car wash",
-            "a-thon"
-          ],
-          "default": "not specified",
-          "prompt": "What was the activity?"
-        },
-        "date": {
-          "type": "AMAZON.DATE",
-          "default": "TODAY",
-          "prompt": "When did you participate?"
-        },
-        "confirmation": "I will record that you participated {qty} day at the {object} on {date}. Ok?",
-        "cancel": "Sorry, please try again.",
-        "dailyTarget": "0",
-        "weeklyTarget": "0",
-        "monthlyTarget": "3"
       }
     ],
     "ui": {
-      "titleBar": "Resolutions",
-      "initialText": "You can ask me to record your Resolution activities. For example enter, `I gave 3 pairs of shoes to charity today` or `Yesterday I walked at the heart walk`.",
-      "initialSpeechInstruction": "Say phrases like `I gave 20 dollars to charity today`."
+      "titleBar": "Healthy For Good",
+      "initialText": "Enter phrases like `I ate 2 cups of pears today` or `I walked for 30 minutes today`.",
+      "initialSpeechInstruction": "Say phrases like `I ate 2 cups of apples today` or `I walked for 30 minutes today`. "
     }
   }
 }
