@@ -197,6 +197,7 @@
           "prompt": "When did you do eat this?"
         },
         "confirmation": "Thanks. I will record that {date} you ate {qty} servings of fruit. Ok?",
+        "cancel": "Sorry, please try again.",
         "dailyTarget": "4",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
@@ -398,6 +399,7 @@
           "prompt": "When did you do eat this?"
         },
         "confirmation": "Thanks. I will record that {date} you ate {qty} servings of vegetables. Ok?",
+        "cancel": "Sorry, please try again.",
         "dailyTarget": "4",
         "weeklyTarget": "0",
         "monthlyTarget": "0"
