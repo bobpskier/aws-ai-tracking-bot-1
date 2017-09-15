@@ -159,6 +159,11 @@ Resources:
                 - AttributeDataType: String
                   Name: "email"
                   Required: true
+                  Mutable: true
+                - AttributeDataType: String
+                  Name: "preferred_username"
+                  Required: true
+                  Mutable: true
 
     CognitoUserPoolClient:
         Type: AWS::Cognito::UserPoolClient
@@ -1004,20 +1009,20 @@ Resources:
                             ClientName=normalized,
                             RefreshTokenValidity=365,
                             CallbackURLs=[
-                                'https://${WebAppBucketDashboard.DomainName}/index.html?loggedin',
+                                'https://${WebAppBucketDashboard.DomainName}/index.html?loggedin=yes',
                             ],
                             LogoutURLs=[
-                                'https://${WebAppBucketDashboard.DomainName}/index.html?loggedout',
+                                'https://${WebAppBucketDashboard.DomainName}/index.html?loggedout=yes',
                             ],
                             SupportedIdentityProviders=[
-                                    'COGNITO',
+                                    'COGNITO'
                             ],
                             AllowedOAuthFlows=[
-                                'code', 'implicit'
+                                'implicit'
                             ],
                             AllowedOAuthScopes=[
                                 'phone', 'email', 'openid', 'profile'
-                            ],
+                            ]
                             AllowedOAuthFlowsUserPoolClient=True
                         )
 

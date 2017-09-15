@@ -25,9 +25,12 @@ License for the specific language governing permissions and limitations under th
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 
+const jwt = require('jsonwebtoken');
+
 Vue.use(Vuetify);
 
-/* eslint-disable no-new, no-alert, no-console, func-names, no-unused-vars, object-shorthand */
+/* eslint-disable no-new, no-alert, no-console, func-names, no-unused-vars, object-shorthand,
+   prefer-arrow-callback, prefer-template */
 
 export default {
   name: 'UserProfile',
@@ -47,6 +50,18 @@ export default {
       let v = localStorage.getItem('username');
       if (v === undefined) {
         v = '';
+      }
+
+      const decoded = jwt.decode(localStorage.getItem('idtokenjwt'), { complete: true} );
+      if (decoded) {
+        if (decoded.payload) {
+          if (decoded.payload.email) {
+            v = decoded.payload.email;
+          }
+          if (decoded.payload.preferred_username) {
+            v = decoded.payload.preferred_username;
+          }
+        }
       }
       return v;
     },
