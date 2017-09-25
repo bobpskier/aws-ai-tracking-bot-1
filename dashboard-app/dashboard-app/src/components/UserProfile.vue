@@ -16,6 +16,7 @@ License for the specific language governing permissions and limitations under th
     <div class="username">
       {{ username }}
       <v-btn v-on:click.native="logout();" round primary dark small>logout</v-btn>
+      <v-btn v-on:click.native="fitbitLogin();" round primary dark small>Fitbit</v-btn>
     </div>
   </div>
 </template>
@@ -26,6 +27,11 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 
 const jwt = require('jsonwebtoken');
+const OAuth = require('@zalando/oauth2-client-js');
+const fitbit = new OAuth.Provider({
+  id: 'fitbit',   // required
+  authorization_url: 'https://www.fitbit.com/oauth2/authorize',
+});
 
 Vue.use(Vuetify);
 
@@ -43,6 +49,20 @@ export default {
     this.username = this.obtainUsername();
   },
   methods: {
+    fitbitLogin: function() {
+      const request = new OAuth.Request({
+        client_id: '228MQH',  // required
+        redirect_uri: 'https://healthyforgoodfour-webappbucketdashboard-1ovngr8lnagri.s3.amazonaws.com/index.html?fitbitlogin=yes',
+      });
+
+// Give it to the provider
+      const uri = fitbit.requestToken(request);
+// Later we need to check if the response was expected
+// so save the request
+      fitbit.remember(request);
+// Do the redirect
+      window.location.href = uri;
+    },
     logout: function (e) {
       this.$emit('logout');
     },
