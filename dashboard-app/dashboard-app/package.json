@@ -14,7 +14,6 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "@zalando/oauth2-client-js": "0.0.18",
     "amazon-cognito-auth-js": "^1.0.0",
     "aws-lex-web-ui": "github:awslabs/aws-lex-web-ui#development",
     "aws-sdk": "^2.100.0",

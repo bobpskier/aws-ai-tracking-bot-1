@@ -49,19 +49,8 @@ export default {
     this.username = this.obtainUsername();
   },
   methods: {
-    fitbitLogin: function() {
-      const request = new OAuth.Request({
-        client_id: '228MQH',  // required
-        redirect_uri: 'https://healthyforgoodfour-webappbucketdashboard-1ovngr8lnagri.s3.amazonaws.com/index.html?fitbitlogin=yes',
-      });
-
-// Give it to the provider
-      const uri = fitbit.requestToken(request);
-// Later we need to check if the response was expected
-// so save the request
-      fitbit.remember(request);
-// Do the redirect
-      window.location.href = uri;
+    fitbitLogin: function () {
+      window.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228MQH&redirect_uri=https%3A%2F%2Fhealthyforgoodfour-webappbucketdashboard-1ovngr8lnagri.s3.amazonaws.com%2Findex.html%3Ffitbitlogin=yes&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight';
     },
     logout: function (e) {
       this.$emit('logout');
