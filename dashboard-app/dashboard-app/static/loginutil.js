@@ -93,9 +93,6 @@ if (curUrl.indexOf('home') >= 0) {
   logout();
 } else if (token) {
   window.location.href = 'index.html?home';
-} else if (curUrl.indexOf('fitbitlogin') >= 0) {
-  console.log('fitbitlogin complete');
-  window.location.href = 'index.html?home';
-}else {
+} else {
   window.location.href = '/static/indexentry.html';
 }

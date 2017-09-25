@@ -16,7 +16,6 @@ License for the specific language governing permissions and limitations under th
     <div class="username">
       {{ username }}
       <v-btn v-on:click.native="logout();" round primary dark small>logout</v-btn>
-      <v-btn v-on:click.native="fitbitLogin();" round primary dark small>Fitbit Login</v-btn>
     </div>
   </div>
 </template>
@@ -27,8 +26,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
-const FitbitStrategy = require('passport-fitbit-oauth2').FitbitOAuth2Strategy;
 
 Vue.use(Vuetify);
 
@@ -46,17 +43,6 @@ export default {
     this.username = this.obtainUsername();
   },
   methods: {
-    fitbitLogin: function() {
-      passport.use(new FitbitStrategy({
-        clientID: '228MQH',
-        clientSecret: 'a6d9356de3eef1965bcb40e43262cb4d',
-        callbackURL: 'https://healthyforgoodfour-webappbucketdashboard-1ovngr8lnagri.s3.amazonaws.com/index.html?fitbitlogin=yes',
-      },
-        function(accessToken, refreshToken, profile, done) {
-          console.log(JSON.stringify(profile, null, 2));
-        },
-      ));
-    },
     logout: function (e) {
       this.$emit('logout');
     },

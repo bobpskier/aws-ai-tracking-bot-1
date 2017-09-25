@@ -21,8 +21,6 @@
     "jsonwebtoken": "^8.0.1",
     "material-design-icons": "^3.0.1",
     "moment": "^2.18.1",
-    "passport": "^0.4.0",
-    "passport-fitbit-oauth2": "^1.0.2",
     "radial-progress-chart": "0.0.4",
     "roboto-fontface": "^0.8.0",
     "v-tooltip": "^1.1.6",
