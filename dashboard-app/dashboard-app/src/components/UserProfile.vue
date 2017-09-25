@@ -27,11 +27,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 
 const jwt = require('jsonwebtoken');
-const OAuth = require('@zalando/oauth2-client-js');
-const fitbit = new OAuth.Provider({
-  id: 'fitbit',   // required
-  authorization_url: 'https://www.fitbit.com/oauth2/authorize',
-});
 
 Vue.use(Vuetify);
 
