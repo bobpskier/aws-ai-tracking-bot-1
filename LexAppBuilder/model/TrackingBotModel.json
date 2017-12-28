@@ -239,6 +239,7 @@
           "type": "custom",
           "autoPlurals": "yes",
           "values": [
+            "ArtichokeTest",
             "Artichoke",
             "Arugula",
             "Asparagus",
