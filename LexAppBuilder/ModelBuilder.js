@@ -366,17 +366,21 @@ function buildBot(botName, model, lambdaFunctionArn) {
     const slottypeObjectName = "Object" + model.data.bot.categories[i].name + botName;
     const slottypeUnitsName = "Units" + model.data.bot.categories[i].name + botName;
 
-    const slottypeVerb = generateSlotType(slottypeVerbName.toLowerCase(), model.data.bot.categories[i].verb.values);
+    const slottypeVerb = generateSlotType(slottypeVerbName.toLowerCase(), model.data.bot.categories[i].verb.values, false);
     if (slottypeVerb) {
       slotsToBuild[slotsToBuild.length] = slottypeVerb;
     }
 
-    const slottypeObject = generateSlotType(slottypeObjectName.toLowerCase(), model.data.bot.categories[i].object.values);
+    let autoPlurals = false;
+    if (model.data.bot.categories[i].object.autoPlurals && model.data.bot.categories[i].object.autoPlurals.toLowerCase() === 'yes') {
+      autoPlurals = true;
+    }
+    const slottypeObject = generateSlotType(slottypeObjectName.toLowerCase(), model.data.bot.categories[i].object.values, autoPlurals);
     if (slottypeObject) {
       slotsToBuild[slotsToBuild.length] = slottypeObject;
     }
 
-    const slottypeUnits = generateSlotType(slottypeUnitsName.toLowerCase(), model.data.bot.categories[i].units.values);
+    const slottypeUnits = generateSlotType(slottypeUnitsName.toLowerCase(), model.data.bot.categories[i].units.values, false);
     if (slottypeUnits) {
       slotsToBuild[slotsToBuild.length] = slottypeUnits;
     }
@@ -464,12 +468,15 @@ function buildBot(botName, model, lambdaFunctionArn) {
 
   return (generateYaml(bot));
 
-  function generateSlotType(name, values) {
+  function generateSlotType(name, values, autoPlural) {
     if (values.length > 0) {
       const res = new SlotType.SlotType(name);
       res.setDescription(name);
       for (let k of values) {
         res.addType(k);
+        if (autoPlural) {
+          res.addType(k + 's');
+        }
       }
       return res;
     } else {
@@ -574,4 +581,21 @@ function enforceSyntax(a) {
   b = b.replace(/[9]/g, 'j');
   b = b.replace(/[\-]/g, 'k');
   return b;
+}
+
+exports.validateModel = function(modelFile) {
+  var data = {};
+  data = readModel(modelFile);
+  var schema = readModel("json_schema.json");
+
+  return new Promise(function (resolve, reject) {
+    const Validator = require('jsonschema').Validator;
+    const v = new Validator();
+    var result = v.validate(data, schema);
+    if (result.valid === false) {
+      reject (result);
+    } else {
+      resolve(result);
+    }
+  });
 }
