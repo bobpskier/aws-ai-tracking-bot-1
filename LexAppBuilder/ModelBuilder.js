@@ -101,12 +101,15 @@ exports.constructModel = function (name, modelFile, s3bucket, region, generateYa
 };
 
 function buildFunctionZipInS3(botName, model, s3bucket, timestamp) {
+  logger.info("starting buildFunctionZipInS3");
   return new Promise(function (resolve, reject) {
     const zip = new AdmZip();
+    logger.info("have zip and starting to construct");
     zip.addLocalFile(targetOutputFolder + "/model.json");
     zip.addLocalFile(targetOutputFolder + "/processBotInfo" + botName + ".py");
     const localZipName = targetOutputFolder + "/processBotInfo" + botName + ".zip";
     zip.writeZip(localZipName);
+    logger.info("zip written");
 
     const s3 = new AWS.S3();
     const params = {
@@ -115,7 +118,10 @@ function buildFunctionZipInS3(botName, model, s3bucket, timestamp) {
       Body: fs.createReadStream(localZipName)
     };
 
+    logger.info("params constructed");
+
     s3.putObject(params, function (err, data) {
+      logger.info("out object return");
       if (err) {
         logger.error("Could not add zip to s3 bucket. Pipeline stopped: " + err, err.stack);
         reject(err);
