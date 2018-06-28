@@ -11,8 +11,23 @@ const noauth = localStorage.getItem('noauth');
 const rd1 = window.location.protocol + '//' + window.location.hostname + '/index.html?loggedin=yes';
 const rd2 = window.location.protocol + '//' + window.location.hostname + '/index.html?loggedout=yes';
 
-console.log('rd1 is: ' + rd1);
-console.log('rd2 is: ' + rd2);
+const processFitbitResponse = function (res) {
+  if (!res.ok) {
+    throw new Error('Fitbit API request failed: ' + res);
+  }
+
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.indexOf('application/json') !== -1) {
+    const val = res.json();
+    val.then((data) => {
+      console.debug('fitbit returned: ' + JSON.stringify(data, null, 2));
+      localStorage.setItem('fitbitdata', JSON.stringify(data, null, 2));
+    });
+    window.location.href = 'index.html?home';
+  } else {
+    throw new Error('JSON expected but received ' + contentType);
+  }
+};
 
 const authData = {
   ClientId: appUserPoolClientId, // Your client id here
@@ -22,7 +37,7 @@ const authData = {
   RedirectUriSignOut: rd2,
 };
 
-/* eslint-disable prefer-template, object-shorthand, no-console, prefer-arrow-callback */
+/* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
 
 const auth = new CognitoAuth(authData);
 
@@ -38,11 +53,11 @@ function logout() {
 }
 
 auth.userhandler = {
-  onSuccess: function (result) {
-    console.log('Sign in success: ' + JSON.stringify(result, null, 2));
+  onSuccess: function () {
+    console.debug('Sign in success');
   },
   onFailure: function (err) {
-    console.log('Sign in failure: ' + JSON.stringify(err, null, 2));
+    console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
   },
 };
 
@@ -52,7 +67,7 @@ if (curUrl.indexOf('home') >= 0) {
   if (token === null || token === undefined) {
     auth.getSession();
   } else {
-    console.log('goto home');
+    console.debug('goto home');
     const session = auth.getSignInUserSession();
     if (!session.isValid()) {
       auth.getSession();
@@ -74,12 +89,12 @@ if (curUrl.indexOf('home') >= 0) {
     localStorage.setItem('poolname', appUserPoolName);
     window.location.href = 'index.html?home';
   } catch (reason) {
-    console.log('failed to parse response: ' + reason);
-    console.log('url was: ' + minurl);
+    console.debug('failed to parse response: ' + reason);
+    console.debug('url was: ' + minurl);
     window.location.href = 'index.html';
-  };
+  }
 } else if (curUrl.indexOf('loggedout') >= 0) {
-  console.log('logout complete');
+  console.debug('logout complete');
   localStorage.removeItem('noauth');
   localStorage.removeItem('idtokenjwt');
   localStorage.removeItem('cognitoid');
@@ -91,8 +106,33 @@ if (curUrl.indexOf('home') >= 0) {
   }
 } else if (curUrl.indexOf('index.html?dosignout') >= 0) {
   logout();
+} else if (curUrl.indexOf('fitbitlogin') >= 0) {
+  console.debug('fitbit login is: ' + curUrl);
+  const fragmentQueryParameters = {};
+  window.location.hash.slice(1).replace(
+    new RegExp('([^?=&]+)(=([^&]*))?', 'g'),
+    function ($0, $1, $2, $3) { fragmentQueryParameters[$1] = $3; },
+  );
+
+  const fitbitAccessToken = fragmentQueryParameters.access_token;
+  console.debug('fitbit accesstoken is: ' + fitbitAccessToken);
+  const url = 'https://api.fitbit.com/1/user/-/activities/steps/date/today/1m.json';
+  fetch(
+    url,
+    {
+      headers: new Headers({
+        Authorization: 'Bearer ' + fitbitAccessToken,
+      }),
+      mode: 'cors',
+      method: 'GET',
+    },
+  ).then(processFitbitResponse)
+    .catch(function (error) {
+      console.error(error);
+    });
 } else if (token) {
   window.location.href = 'index.html?home';
 } else {
   window.location.href = '/static/indexentry.html';
 }
+

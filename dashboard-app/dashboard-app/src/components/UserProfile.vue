@@ -25,12 +25,13 @@ License for the specific language governing permissions and limitations under th
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import Logger from '../logger';
 
 const jwt = require('jsonwebtoken');
 
 Vue.use(Vuetify);
 
-/* eslint-disable no-new, no-alert, no-console, func-names, no-unused-vars, object-shorthand,
+/* eslint-disable no-new, no-alert, func-names, no-unused-vars, object-shorthand,
    prefer-arrow-callback, prefer-template */
 
 export default {
@@ -42,6 +43,7 @@ export default {
   },
   mounted() {
     this.username = this.obtainUsername();
+    Logger.debug('mounted UserProfile. user: ' + this.username);
   },
   methods: {
     fitbitLogin: function () {
@@ -55,8 +57,7 @@ export default {
       if (v === undefined) {
         v = '';
       }
-
-      const decoded = jwt.decode(localStorage.getItem('idtokenjwt'), { complete: true} );
+      const decoded = jwt.decode(localStorage.getItem('idtokenjwt'), { complete: true });
       if (decoded) {
         if (decoded.payload) {
           if (decoded.payload.email) {
