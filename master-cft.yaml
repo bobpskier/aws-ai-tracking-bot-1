@@ -513,7 +513,7 @@ Resources:
                                 - echo "INFO install cmds"
                                 - yum install zip -y
                                 - npm install -g n
-                                - n stable
+                                - n 9.3.0
                                 - npm update -g npm
                         pre_build:
                             commands:
@@ -1015,10 +1015,10 @@ Resources:
                                 'https://${WebAppBucketDashboard.DomainName}/index.html?loggedout=yes',
                             ],
                             SupportedIdentityProviders=[
-                                    'COGNITO'
+                                    'COGNITO',
                             ],
                             AllowedOAuthFlows=[
-                                'implicit'
+                                'implicit',
                             ],
                             AllowedOAuthScopes=[
                                 'phone', 'email', 'openid', 'profile'
