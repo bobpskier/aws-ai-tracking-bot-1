@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     fitbitLogin: function () {
-      window.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228MQH&redirect_uri=https%3A%2F%2Fhealthyforgoodfour-webappbucketdashboard-1ovngr8lnagri.s3.amazonaws.com%2Findex.html%3Ffitbitlogin=yes&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight';
+      window.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228MQH&redirect_uri=https%3A%2F%2Ftrackingbothealthforgood-webappbucketdashboard-15y09kl9nolcw.s3.amazonaws.com%2Findex.html%3Ffitbitlogin=yes&scope=activity%20nutrition%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight';
     },
     logout: function (e) {
       this.$emit('logout');
