@@ -126,6 +126,7 @@ export default {
   @import '../node_modules/material-design-icons/iconfont/material-icons.css';
   @import '../node_modules/vuetify/dist/vuetify.min.css';
   @import '../node_modules/aws-lex-web-ui/dist/lex-web-ui.css';
+  @import './components/lex-web-ui-overrides.css';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -133,6 +134,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 15px;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #userProfile {
@@ -143,10 +146,8 @@ export default {
 
 #lex-web {
   width: 35%;
-  height: 85%;
   position: absolute;
   right: 0px;
   top: 0px;
-  margin-right: 10px;
 }
 </style>
